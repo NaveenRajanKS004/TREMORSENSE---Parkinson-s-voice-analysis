@@ -1,0 +1,22 @@
+# Virtual Environment
+.venv/
+venv/
+
+# Instance folder (often contains DB or config)
+instance/
+
+# Temporary audio files
+temp_audio/
+
+# Database file (if it's in the root)
+users.db
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS generated files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile - TremorSense</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1e40af;
+            --bg-secondary: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #4a5568;
+            --border-light: #e2e8f0;
+            --success: #10b981;
+            --error: #ef4444;
+            --border-radius: 12px;
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-secondary); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            margin: 0;
+            padding: 20px;
+        }
+        .profile-card { 
+            background: white; 
+            padding: 40px; 
+            border-radius: var(--border-radius); 
+            box-shadow: var(--shadow-lg); 
+            width: 100%; 
+            max-width: 600px;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #e0e7ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px auto;
+            border: 4px solid var(--primary-blue);
+        }
+        .avatar svg {
+            width: 50px;
+            height: 50px;
+            color: var(--primary-blue);
+        }
+        .profile-header h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        .profile-header p {
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+        .profile-details, .password-section {
+            border-top: 1px solid var(--border-light);
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+        .detail-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            font-size: 1rem;
+        }
+        .detail-item svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            color: var(--primary-blue);
+        }
+        .item-label {
+            font-weight: 500;
+            color: var(--text-primary);
+            width: 120px;
+        }
+        .item-value {
+            color: var(--text-secondary);
+        }
+        
+        /* Password Section Styles */
+        .password-section h3 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text-primary);
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        /* Buttons and Links */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            width: 100%;
+        }
+        .btn:hover { background-color: var(--primary-dark); }
+        .btn-secondary {
+            background-color: #e0e7ff;
+            color: var(--primary-dark);
+        }
+        .btn-secondary:hover {
+            background-color: #c7d2fe;
+        }
+        .action-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 1rem;
+        }
+        .hidden {
+            display: none;
+        }
+        
+        /* Flash Messages */
+        .flash-message {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .flash-success {
+            background-color: #d1fae5;
+            color: #065f46;
+        }
+        .flash-error {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="profile-header">
+            <div class="avatar">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5a5.5 5.5 0 0 1 5.5 5.5c0 1.571-.67 3.013-1.772 4.017-1.71 1.54-4.257 4.45-4.257 4.45s-2.547-2.91-4.257-4.45C6.17 11.013 5.5 9.57 5.5 8a5.5 5.5 0 0 1 5.5-5.5Zm0 3a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z M4.303 18.113a9.5 9.5 0 0 1 15.394 0A1 1 0 0 1 19.03 19.5H4.97a1 1 0 0 1-.667-1.387Z"/></svg>
+            </div>
+            <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+            <p>@{{ user.username }}</p>
+        </div>
+
+        <div class="profile-details">
+            <div class="detail-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.5a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1v-17Zm3.5 11a1 1 0 1 0 0 2h5a1 1 0 1 0 0-2h-5Zm0-4a1 1 0 1 0 0 2h8a1 1 0 1 0 0-2h-8Zm0-4a1 1 0 1 0 0 2h8a1 1 0 1 0 0-2h-8Z"/></svg>
+                <span class="item-label">First Name</span>
+                <span class="item-value">{{ user.first_name }}</span>
+            </div>
+            <div class="detail-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 3.5a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1h-13a1 1 0 0 1-1-1v-17Zm3.5 11a1 1 0 1 0 0 2h5a1 1 0 1 0 0-2h-5Zm0-4a1 1 0 1 0 0 2h8a1 1 0 1 0 0-2h-8Zm0-4a1 1 0 1 0 0 2h8a1 1 0 1 0 0-2h-8Z"/></svg>
+                <span class="item-label">Last Name</span>
+                <span class="item-value">{{ user.last_name }}</span>
+            </div>
+            <div class="detail-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5.825 21a2 2 0 0 1-1.895-1.448l-1.9-6.5a2 2 0 0 1 .63-2.11L12 3.44l9.34 7.502a2 2 0 0 1 .63 2.11l-1.9 6.5A2 2 0 0 1 18.175 21H5.825ZM12 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></svg>
+                <span class="item-label">Date of Birth</span>
+                <span class="item-value">{{ user.dob }}</span>
+            </div>
+            <div class="detail-item">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2a1 1 0 1 0-2 0v2H8a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0V6h1a1 1 0 1 0 0-2h-1V2ZM5.121 9.121a1 1 0 0 0-1.242.022L2.023 11a1 1 0 0 0-.022 1.242l1.6 1.92a1 1 0 0 0 1.264.195l2.28-.912a1 1 0 0 0 .583-.908V9.32a1 1 0 0 0-.583-.908l-2.28-.912a1 1 0 0 0-.022-.022Zm13.758 0-.022.022-2.28.912a1 1 0 0 0-.583.908v3.215a1 1 0 0 0 .583.908l2.28.912a1 1 0 0 0 1.264-.195l1.6-1.92a1 1 0 0 0-.022-1.242l-1.856-1.856a1 1 0 0 0-1.242-.022ZM12 11a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2H12Zm-1 5a1 1 0 1 0-2 0v2H8a1 1 0 1 0 0 2h1v1a1 1 0 1 0 2 0v-1h1a1 1 0 1 0 0-2h-1v-2Z"/></svg>
+                <span class="item-label">Age</span>
+                <span class="item-value">{{ user.age }}</span>
+            </div>
+        </div>
+
+        <div class="password-section">
+            <button id="changePasswordBtn" class="btn btn-secondary">Change Password</button>
+
+            <form id="passwordForm" class="hidden" method="POST" action="{{ url_for('change_password') }}">
+                <h3>Update Your Password</h3>
+                <div class="form-group">
+                    <label for="current_password">Current Password</label>
+                    <input type="password" name="current_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_password">New Password</label>
+                    <input type="password" name="new_password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Confirm New Password</label>
+                    <input type="password" name="confirm_password" required>
+                </div>
+                <button type="submit" class="btn">Save Changes</button>
+            </form>
+        </div>
+
+        <div class="action-buttons">
+            <a href="{{ url_for('home') }}" class="btn">← Back to Analysis</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('changePasswordBtn').addEventListener('click', function() {
+            document.getElementById('passwordForm').classList.toggle('hidden');
+            this.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
