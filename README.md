@@ -24,8 +24,8 @@ TremorSense is a web application designed to aid in the preliminary screening of
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/YourUsername/YourRepositoryName.git](https://github.com/YourUsername/YourRepositoryName.git)
-    cd YourRepositoryName
+    git clone [https://github.com/NaveenRajanKS004/TREMORSENSE---Parkinson-s-voice-analysis.git]
+    cd TREMORSENSE---Parkinson-s-voice-analysis
     ```
 2.  **Create and activate a virtual environment:**
     ```bash
@@ -45,8 +45,6 @@ TremorSense is a web application designed to aid in the preliminary screening of
     python app.py
     ```
 5.  Open your web browser and go to `http://127.0.0.1:5000`.
-
-## Project Structure 📁
 
 ## Disclaimer ⚠️
 
